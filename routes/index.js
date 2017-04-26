@@ -7,6 +7,8 @@ const {
 const User = require('../models/').User;
 
 router.get('/', loggedInOnly, function(req, res, next) {
+  let children = req.user.populateChildren();
+  console.log('Children: ', children);
   res.render('home');
 });
 
@@ -14,10 +16,9 @@ router.get('/login', loggedOutOnly, function(req, res) {
   res.render('login');
 });
 
-router.delete('/logout', loggedInOnly, function(req, res) {
-  req.session.destroy();
-  req.method = 'GET';
-  res.redirect('/login');
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
