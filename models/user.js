@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 //const passportMongoose = require('passport-local-mongoose');
+var findOrCreate = require('mongoose-findorcreate');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -21,13 +22,11 @@ const UserSchema = new Schema({
     {
       type: Schema.Types.ObjectId
     }
-  ],
-  referralHash: {
-    type: String
-  }
+  ]
 });
 
 UserSchema.plugin(uniqueValidator);
+UserSchema.plugin(findOrCreate);
 
 UserSchema.virtual('points').get(function(name) {
   //points!
@@ -41,7 +40,7 @@ UserSchema.virtual('password').set(function(value) {
 
 UserSchema.virtual('referralLink')
   .get(function() {
-    let link = `referral/${this.referralHash}`;
+    let link = `referral/${this.id}`;
     return link;
   })
   .set(function(value) {

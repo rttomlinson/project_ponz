@@ -8,8 +8,7 @@ module.exports = () => {
   var users = [];
   let user = new User({
     email: 'admin@admin.com',
-    password: 'password',
-    referralLink: 'admin@admin.com'
+    password: 'password'
   });
   users.push(user);
 
