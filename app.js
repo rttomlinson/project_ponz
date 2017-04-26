@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 //Set env variables
-require('dotenv').config();
+//require('dotenv').config();
 
 //////////////////////////
 //Serve static files
@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/public'));
 ////////////////////////////////////
 // Connect to mongo database
 //////////////////////////////////
-const cleanDb = require('./seeds/clean');
+//const cleanDb = require('./seeds/clean');
 
 const mongoose = require('mongoose');
 app.use((req, res, next) => {
@@ -50,11 +50,11 @@ app.use(
 //Handlebars template engine
 //////////////////////////////
 const expressHandlebars = require('express-handlebars');
-const helpers = require('./helpers');
+//const helpers = require('./helpers');
 var hbs = expressHandlebars.create({
   partialsDir: 'views/',
-  defaultLayout: 'main',
-  helpers: helpers.registered
+  defaultLayout: 'main'
+  //helpers: helpers.registered
 });
 
 app.engine('handlebars', hbs.engine);
@@ -63,7 +63,7 @@ app.set('view engine', 'handlebars');
 /////////////////////////////
 //Set up app passport
 /////////////////////////////
-let passport = require('./services/passports')(app);
+let passport = require('./services/passport')(app);
 
 /////////////////////
 //If user already logged in populate res.locals
@@ -76,9 +76,9 @@ app.use((req, res, next) => {
   next();
 });
 
-const authenticateRouter = require('./routes/authenticate')(passport);
+//const authenticateRouter = require('./routes/authenticate')(passport);
 const indexRouter = require('./routes/index');
-app.use('/auth/', authenticateRouter);
+//app.use('/auth/', authenticateRouter);
 app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3000, () => {
