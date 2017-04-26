@@ -1,13 +1,13 @@
-module.exports = {
-  sortChildren = function(children) {
-    let childMap = children.map(function(child) {
-        if (child.children.length == 0) {
-          return child.email;
-        }
-        else {
-          sortChildren(child)
-        }
-      });
-      return list;
-    };
+"use strict";
+
+let ChildrenHelpers = {};
+ChildrenHelpers.listChildren = function(children) {
+    let ul = "<ul>";
+    children.forEach((children) => {
+        ul += "<li>boo</li>";
+    });
+    ul += "</ul>";
+    return ul;
 };
+
+module.exports = ChildrenHelpers;
