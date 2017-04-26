@@ -2,38 +2,41 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/').User;
 
-router.get('/:id', (req, res) => {
+module.exports = function(passport) {
+  router.get('/:id', (req, res) => {
     let parent = req.params.id;
     res.render('register', {
-        parent
+      parent
     });
-});
+  });
 
-router.post('/', (req, res) => {
+  router.post('/', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
     let parent = req.body.parent;
 
-    User.findOrCreate({
-            email
-        }, {
-            email,
-            password,
-            parent
-        })
-        .then(user => {
-            //User.findOneAndUpdate({id:parent}, {children: {$push: user.id }})
-            return User.findByIdAndUpdate(parent, {
-                $push: {
-                    children: user.id
-                }
-            });
-        })
-        .then(() => {
-            //need registered user to be logged in
-
-            res.redirect(307, '/auth/local');
+    User.findOrCreate(
+      {
+        email
+      },
+      {
+        email,
+        password,
+        parent
+      },
+      function(err, user) {
+        User.findByIdAndUpdate(parent, {
+          $push: {
+            children: user.id
+          }
+        }).then(user => {
+          passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/login'
+          })(req, res, next);
         });
-});
-
-module.exports = router;
+      }
+    );
+  });
+  return router;
+};

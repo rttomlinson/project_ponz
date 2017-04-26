@@ -31,22 +31,21 @@ app.use(express.static(__dirname + '/public'));
 
 const mongoose = require('mongoose');
 app.use((req, res, next) => {
-    if (mongoose.connection.readyState) {
-        next();
-    }
-    else {
-        mongoose.connect('mongodb://localhost/test').then(() => {
-            // cleanDb().then(() => {
-            next();
-            // })
-        });
-    }
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    mongoose.connect('mongodb://localhost/test').then(() => {
+      // cleanDb().then(() => {
+      next();
+      // })
+    });
+  }
 });
 
 app.use(
-    bodyParser.urlencoded({
-        extended: false
-    })
+  bodyParser.urlencoded({
+    extended: false
+  })
 );
 ////////////////////////////////
 //Expres session
@@ -54,11 +53,11 @@ app.use(
 const expressSession = require('express-session');
 
 app.use(
-    expressSession({
-        secret: process.env.secret || 'puppies',
-        saveUninitialized: false,
-        resave: false
-    })
+  expressSession({
+    secret: process.env.secret || 'puppies',
+    saveUninitialized: false,
+    resave: false
+  })
 );
 
 //////////////////////////////
@@ -67,9 +66,9 @@ app.use(
 const expressHandlebars = require('express-handlebars');
 //const helpers = require('./helpers');
 var hbs = expressHandlebars.create({
-    partialsDir: 'views/',
-    defaultLayout: 'main'
-        //helpers: helpers.registered
+  partialsDir: 'views/',
+  defaultLayout: 'main'
+  //helpers: helpers.registered
 });
 
 app.engine('handlebars', hbs.engine);
@@ -84,21 +83,21 @@ let passport = require('./services/passport')(app);
 //If user already logged in populate res.locals
 /////////////////////
 app.use((req, res, next) => {
-    console.log('req.user is now', req.user);
-    if (req.user) {
-        res.locals.currentUser = req.user;
-    }
-    next();
+  console.log('req.user is now', req.user);
+  if (req.user) {
+    res.locals.currentUser = req.user;
+  }
+  next();
 });
 
 const indexRouter = require('./routes/index');
 const authenticateRouter = require('./routes/authenticate')(passport);
-const registerRouter = require('./routes/register');
+const registerRouter = require('./routes/register')(passport);
 
 app.use('/register', registerRouter);
 app.use('/auth/', authenticateRouter);
 app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log('taking calls');
+  console.log('taking calls');
 });
