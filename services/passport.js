@@ -8,12 +8,12 @@ module.exports = function(app) {
   const LocalStrategy = require('passport-local').Strategy;
 
   passport.use(
-    new LocalStrategy(function(username, password, done) {
-      User.findOne({ username }, function(err, user) {
+    new LocalStrategy(function(email, password, done) {
+      User.findOne({ email }, function(err, user) {
         console.log(user);
         if (err) return done(err);
         if (!user || !user.validPassword(password)) {
-          return done(null, false, { message: 'Invalid username/password' });
+          return done(null, false, { message: 'Invalid email/password' });
         }
         return done(null, user);
       });
