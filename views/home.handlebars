@@ -1,10 +1,8 @@
 <h1>Homepage</h1>
 <a href="{{currentUser.referralLink}}">{{currentUser.referralLink}}</a>
 
-<h3>Converts:<h3>
-<ul>
-  {{#if currentUser.children}}
-    {{#each currentUser.children as |child|}}
-    {{/each}}
-  {{/if}}
-</ul>
+<h3>Converts:
+    <h3>
+        <ul>
+            {{#if currentUser.children}} {{#each currentUser.children as |child|}} {{/each}} {{/if}}
+        </ul>
