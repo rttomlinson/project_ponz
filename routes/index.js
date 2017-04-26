@@ -16,6 +16,8 @@ router.get('/', loggedInOnly, async function(req, res, next) {
     res.render('home', {
         children
     });
+
+
 });
 
 router.get('/login', loggedOutOnly, function(req, res) {
