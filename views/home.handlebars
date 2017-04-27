@@ -17,6 +17,7 @@
             <td>Items:</td>
             {{#each currentUser.inventory as |item|}}
               <td><img class="" width="48" height="48" src="{{item.imgLocation}}"></td>
+              <td>Quantity: {{item.quantity}}</td>
             {{/each}}
           </tr>
         </tbody>
