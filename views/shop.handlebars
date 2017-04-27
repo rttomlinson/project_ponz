@@ -15,7 +15,7 @@
       <tr>
         <td>Coins:</td>
         {{#each items as |item|}}
-        <td><button form="item{{@index}}" type="submit">{{item.price}} <span class="glyphicon glyphicon-ruble"></span></button></td>
+        <td><button class="btn btn-primary" form="item{{@index}}" type="submit">{{item.price}} <span class="glyphicon glyphicon-ruble"></span></button></td>
         <form id="item{{@index}}" method="post" action="/shop/buy/{{item.id}}">
             <input type="hidden" name="price" value={{item.price}}>
         </form>

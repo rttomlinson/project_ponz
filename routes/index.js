@@ -8,8 +8,6 @@ const User = require('../models/').User;
 
 router.get('/', loggedInOnly, async function(req, res, next) {
   let user = await req.user.populateChildren();
-  currentUser.inventory
-
   res.render('home', {
     user
   });

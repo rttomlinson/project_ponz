@@ -2,7 +2,7 @@
 {{#if user.children.length}}
     <ul>
         {{#each user.children as |user|}}
-            <li>DogeCoints earned from conversion: {{getMoney user.depth}} {{> partials/_childTree user=user}}</li>
+            <li><button class="btn btn-success">{{getMoney user.depth}}</button>{{> partials/_childTree user=user}}</li>
         {{/each}}
     </ul>
 {{/if}}

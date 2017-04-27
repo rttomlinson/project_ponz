@@ -13,34 +13,29 @@ app.use(express.static(__dirname + '/public'));
 ////////////////////////////////////
 // Connect to mongo database
 //////////////////////////////////
-//const cleanDb = require('./seeds/clean');
-
-// const mongoose = require('mongoose');
-// app.use((req, res, next) => {
-//     if (mongoose.connection.readyState) {
-//         next();
-//     }
-//     else {
-//         require('./mongo').then(() => {
-//             //cleanDb().then(() => {
-//             next();
-//             //})
-//         });
-//     }
-// });
 
 const mongoose = require('mongoose');
 app.use((req, res, next) => {
-  if (mongoose.connection.readyState) {
-    next();
-  } else {
-    mongoose.connect('mongodb://localhost/test').then(() => {
-      // cleanDb().then(() => {
-      next();
-      // })
-    });
-  }
+    if (mongoose.connection.readyState) {
+        next();
+    }
+    else {
+        require('./mongo')().then(() => {
+            next();
+        });
+    }
 });
+
+// const mongoose = require('mongoose');
+// app.use((req, res, next) => {
+//   if (mongoose.connection.readyState) {
+//     next();
+//   } else {
+//     mongoose.connect('mongodb://localhost/test').then(() => {
+//       next();
+//     });
+//   }
+// });
 
 app.use(
   bodyParser.urlencoded({
@@ -84,7 +79,7 @@ let passport = require('./services/passport')(app);
 //If user already logged in populate res.locals
 /////////////////////
 app.use((req, res, next) => {
-  console.log('req.user is now', req.user);
+  //console.log('req.user is now', req.user);
   if (req.user) {
     res.locals.currentUser = req.user;
   }

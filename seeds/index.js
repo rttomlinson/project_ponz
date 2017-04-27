@@ -9,9 +9,9 @@ Object.keys(models).forEach(modelName => {
 });
 
 // Connect to MongoDB
-//require('./../mongo')()
-mongoose
-  .connect('mongodb://localhost/test')
+require('./../mongo')()
+// mongoose
+//   .connect('mongodb://localhost/test')
   // Clean the database
   .then(() => console.log('Cleaning Database...'))
   .then(() => {

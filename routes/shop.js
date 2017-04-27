@@ -10,7 +10,6 @@ const Item = require('../models/').Item;
 router.get('/', loggedInOnly, async function(req, res, next) {
     let items = await Item.getAllItems();
     //console.log(items);
-
     res.render('shop', {
         items
     });
@@ -19,33 +18,44 @@ router.get('/', loggedInOnly, async function(req, res, next) {
 router.post('/buy/:id', loggedInOnly, (req, res) => {
     let itemId = req.params.id;
     let price = req.body.price;
-
-    User.findByIdAndUpdate(req.user.id, {
-            $inc: {
-                dogeCoins: price * -1
-            }
-        })
-        .then(user => {
-            let itemToIncr = user.inventory.find(function(item) {
-                return item.id == itemId;
-            });
-
-            if (itemToIncr) {
-                itemToIncr.quantity++;
-                return user.save();
-            }
-            else {
-                return Item.findById(itemId)
-                    .then(item => {
-                        item.quantity = 1;
-                        user.inventory.push(item);
-                        return user.save();
-                    })
-            }
-        })
+    let user = req.user;
+    user.purchaseItem(itemId, price)
         .then(() => {
             res.redirect('/');
+
         });
+
+    // User.findByIdAndUpdate(req.user.id, {
+    //         $inc: {
+    //             dogeCoins: price * -1
+    //         }
+    //     })
+    //     .then(user => {
+    //         let itemToIncr = user.inventory.find(function(item) {
+    //             return item.id == itemId;
+    //         });
+
+    //         if (itemToIncr) {
+    //             itemToIncr.quantity++;
+    //             return user.save();
+    //         }
+    //         else {
+    //             return Item.findById(itemId, {
+    //                     _id: 0,
+    //                     imgLocation: 1
+    //                 })
+    //                 .then(item => {
+    //                     let userItem = {};
+    //                     userItem.quantity = 1;
+    //                     userItem.imgLocation = item.imgLocation;
+    //                     user.inventory.push(userItem);
+    //                     return user.save();
+    //                 })
+    //         }
+    //     })
+    //     .then(() => {
+    //         res.redirect('/');
+    //     });
 });
 
 module.exports = router;
