@@ -1,6 +1,15 @@
-<h1>Homepage</h1>
-<a href="{{currentUser.referralLink}}">{{currentUser.referralLink}}</a>
-<br>
-<a href="/logout">Log out</a>
-<h3>Converts:</h3>
-{{#if children.length}} {{{listChildren children}}} {{/if}}
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Be your own boss!</h1>
+        <a href="{{currentUser.referralLink}}">{{currentUser.referralLink}}</a>
+        <br>
+        <h3>Converts:</h3>
+        {{#if user.children.length}}
+            <ul>
+                {{#each user.children as |user|}}
+                    <li>{{> partials/_childTree user=user}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{{#if user.children.length}}
+    {{user.email}}
+    <ul>
+        {{#each user.children as |user|}}
+            <li>{{> partials/_childTree user=user}}</li>
+        {{/each}}
+    </ul>
+{{else}}
+    {{user.email}}
+{{/if}}

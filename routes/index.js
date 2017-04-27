@@ -7,14 +7,13 @@ const {
 const User = require('../models/').User;
 
 router.get('/', loggedInOnly, async function(req, res, next) {
-    let children = await req.user.populateChildren();
+    let user = await req.user.populateChildren();
     //returns an object with arrays of objects (with arrays of objects)
-    children = children.children;
 
-    console.log('Children: ', children);
+    console.log('Children: ', JSON.stringify(user, null, 2));
 
     res.render('home', {
-        children
+        user
     });
 
 
