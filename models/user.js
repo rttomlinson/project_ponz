@@ -52,13 +52,10 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.methods.populateChildren = function() {
-    console.log('BEGINNING OF POPULATE CHILDREN');
 
     return Promise.all(
             this.children.map(function(childId) {
-                console.log('childId of user is', childId);
                 return User.findById(childId).populate('children').then(child => {
-                    console.log('found child is', child);
                     if (child.children.length == 0) {
                         return child;
                     }
