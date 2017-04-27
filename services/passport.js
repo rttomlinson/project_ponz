@@ -16,7 +16,6 @@ module.exports = function(app) {
                         email
                     })
                     .then(user => {
-                        console.log(user);
                         if (!user || !user.validatePassword(password)) {
                             return done(null, false, {
                                 message: 'Invalid email/password'

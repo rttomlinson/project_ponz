@@ -84,7 +84,7 @@ let passport = require('./services/passport')(app);
 //If user already logged in populate res.locals
 /////////////////////
 app.use((req, res, next) => {
-  //console.log('req.user is now', req.user);
+  console.log('req.user is now', req.user);
   if (req.user) {
     res.locals.currentUser = req.user;
   }

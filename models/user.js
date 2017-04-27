@@ -85,6 +85,7 @@ UserSchema.methods.populateChildren = function(depth = 1) {
     });
 };
 
+
 UserSchema.methods.addMoneyToParentAccount = function(depth = 1) {
   return User.findByIdAndUpdate(this.parentId, {
     $inc: {
