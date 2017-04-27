@@ -53,6 +53,13 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.methods.populateChildren = function(depth = 1) {
+    // let user = await User.findById(this.id).populate('children');
+    // user.children = await Promise.all(user.children.map((child) => {
+    //     return child.populateChildren();
+    // }));
+    // return user;
+    
+    
     return Promise.all(
             this.children.map(function(childId) {
                 return User.findById(childId).populate('children').then(child => {

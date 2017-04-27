@@ -22,40 +22,7 @@ router.post('/buy/:id', loggedInOnly, (req, res) => {
     user.purchaseItem(itemId, price)
         .then(() => {
             res.redirect('/');
-
         });
-
-    // User.findByIdAndUpdate(req.user.id, {
-    //         $inc: {
-    //             dogeCoins: price * -1
-    //         }
-    //     })
-    //     .then(user => {
-    //         let itemToIncr = user.inventory.find(function(item) {
-    //             return item.id == itemId;
-    //         });
-
-    //         if (itemToIncr) {
-    //             itemToIncr.quantity++;
-    //             return user.save();
-    //         }
-    //         else {
-    //             return Item.findById(itemId, {
-    //                     _id: 0,
-    //                     imgLocation: 1
-    //                 })
-    //                 .then(item => {
-    //                     let userItem = {};
-    //                     userItem.quantity = 1;
-    //                     userItem.imgLocation = item.imgLocation;
-    //                     user.inventory.push(userItem);
-    //                     return user.save();
-    //                 })
-    //         }
-    //     })
-    //     .then(() => {
-    //         res.redirect('/');
-    //     });
 });
 
 module.exports = router;

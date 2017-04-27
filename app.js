@@ -26,17 +26,6 @@ app.use((req, res, next) => {
     }
 });
 
-// const mongoose = require('mongoose');
-// app.use((req, res, next) => {
-//   if (mongoose.connection.readyState) {
-//     next();
-//   } else {
-//     mongoose.connect('mongodb://localhost/test').then(() => {
-//       next();
-//     });
-//   }
-// });
-
 app.use(
   bodyParser.urlencoded({
     extended: false
