@@ -8,28 +8,18 @@
     <tbody>
       <tr>
         <td>Items:</td>
-        <td>{{> icons/pokeball }}</td>
-        <td>{{> icons/nailpolish}}</td>
-        <td>{{> icons/bone}}</td>
-        <td>{{> icons/pancakes}}</td>
-        <td>{{> icons/sashimi}}</td>
+        {{#each items as |item|}}
+          <td><img class="" width="48" height="48" src="{{item.imgLocation}}"></td>
+        {{/each}}
       </tr>
       <tr>
         <td>Coins:</td>
-        <td><button form="item1" type="submit">50 <span class="glyphicon glyphicon-ruble"></span></button></td>
-        <td>25 <span class="glyphicon glyphicon-ruble"></td>
-        <td>100 <span class="glyphicon glyphicon-ruble"></td>
-        <td>90 <span class="glyphicon glyphicon-ruble"></td>
-        <td>45 <span class="glyphicon glyphicon-ruble"></td>
+        {{#each items as |item|}}
+        <td><button form="item{{@index}}" type="submit">{{item.price}} <span class="glyphicon glyphicon-ruble"></span></button></td>
+        <form id="item{{@index}}" method="post" action="/shop/buy/{{item.id}}">
+            <input type="hidden" name="price" value={{item.price}}>
+        </form>
+        {{/each}}
       </tr>
     </tbody>
   </table>
-  
-  
-  
-  
-  
-  
-  <form id="item1" method="post" action="/shop/buy/{{item.id}}">
-      <input type="hidden" name="price" value={{item.price}}>
-  </form>
