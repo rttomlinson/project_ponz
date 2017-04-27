@@ -22,7 +22,4 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/shop', function(req, res) {
-  res.render('shop');
-});
 module.exports = router;

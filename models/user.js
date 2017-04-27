@@ -29,7 +29,12 @@ const UserSchema = new Schema({
   dogeCoins: {
     type: Number,
     default: 0
-  }
+  },
+  inventory: [
+    {
+      type: Schema.Types.Mixed
+    }
+  ]
 });
 
 UserSchema.plugin(uniqueValidator);

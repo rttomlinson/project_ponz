@@ -94,7 +94,9 @@ app.use((req, res, next) => {
 const indexRouter = require('./routes/index');
 const authenticateRouter = require('./routes/authenticate')(passport);
 const registerRouter = require('./routes/register')(passport);
+const shopRouter = require('./routes/shop');
 
+app.use('/shop', shopRouter);
 app.use('/register', registerRouter);
 app.use('/auth/', authenticateRouter);
 app.use('/', indexRouter);
