@@ -1,15 +1,10 @@
 <div class="row">
     <div class="col-xs-12">
         <h1>Be your own boss!</h1>
+        <h2>Current DogeCoins: {{currentUser.dogeCoins}}</h2>
         <a href="{{currentUser.referralLink}}">{{currentUser.referralLink}}</a>
         <br>
         <h3>Converts:</h3>
-        {{#if user.children.length}}
-            <ul>
-                {{#each user.children as |user|}}
-                    <li>{{> partials/_childTree user=user}}</li>
-                {{/each}}
-            </ul>
-        {{/if}}
+        {{> partials/_childTree user=user}}
     </div>
 </div>
