@@ -10,7 +10,9 @@ router.get('/', loggedInOnly, async function(req, res, next) {
     let user = await req.user.populateChildren();
     //returns an object with arrays of objects (with arrays of objects)
 
-    console.log('Children: ', JSON.stringify(user, null, 2));
+    console.log('user: ', JSON.stringify(user, null, 2));
+    console.log('user money: ', user.dogeCoins);
+
 
     res.render('home', {
         user

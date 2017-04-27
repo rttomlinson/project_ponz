@@ -22,7 +22,11 @@ const UserSchema = new Schema({
     children: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    dogeCoins: {
+        type: Number,
+        default: 0
+    }
 });
 
 UserSchema.plugin(uniqueValidator);
@@ -56,6 +60,7 @@ UserSchema.methods.populateChildren = function() {
     return Promise.all(
             this.children.map(function(childId) {
                 return User.findById(childId).populate('children').then(child => {
+                    //Get money based on depth of this child element
                     if (child.children.length == 0) {
                         return child;
                     }
@@ -74,19 +79,41 @@ UserSchema.methods.populateChildren = function() {
         });
 };
 
-// UserSchema.methods.populateChildren = async function() {
-//     let children = [];
-
-//     return Promise.all(this.children.map(function(childId) {
-
-//         return User.findById(childId)
-//         .then(child => {
-//             let newChild = await child.populateChildren();
-//             children.push(newChild);
-//         })
-//     }));
-// }
+UserSchema.methods.addMoneyToParentAccount = function(depth = 1) {
+    return User.findByIdAndUpdate(this.parentId, {
+            $inc: {
+                dogeCoins: getMoney(depth)
+            }
+        })
+        .then((user) => {
+            if (user.parentId) {
+                return user.addMoneyToParentAccount(depth + 1);
+            }
+        })
+        .catch((err) => console.log(err));
+};
 
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
+
+
+
+
+
+function getMoney(depth) {
+    switch (depth) {
+        case 1:
+            return 40;
+        case 2:
+            return 20;
+        case 3:
+            return 10;
+        case 4:
+            return 5;
+        case 5:
+            return 2;
+        default:
+            return 1;
+    }
+}

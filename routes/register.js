@@ -37,11 +37,15 @@ module.exports = function(passport) {
                 }
             })
             .then(user => {
-                return User.findByIdAndUpdate(parentId, {
+                
+                let updateDbArray = [];
+                updateDbArray.push(User.findByIdAndUpdate(parentId, {
                     $push: {
                         children: user.id
                     }
-                });
+                }));
+                updateDbArray.push(user.addMoneyToParentAccount());
+                return Promise.all(updateDbArray);
             })
             .then(user => {
                 console.log('parentId: ', user);
