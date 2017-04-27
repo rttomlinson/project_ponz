@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <td>Coins:</td>
-        <td>50 <span class="glyphicon glyphicon-ruble"></span></td>
+        <td><button form="item1" type="submit">50 <span class="glyphicon glyphicon-ruble"></span></button></td>
         <td>25 <span class="glyphicon glyphicon-ruble"></td>
         <td>100 <span class="glyphicon glyphicon-ruble"></td>
         <td>90 <span class="glyphicon glyphicon-ruble"></td>
@@ -24,3 +24,12 @@
       </tr>
     </tbody>
   </table>
+  
+  
+  
+  
+  
+  
+  <form id="item1" method="post" action="/shop/buy/{{item.id}}">
+      <input type="hidden" name="price" value={{item.price}}>
+  </form>
