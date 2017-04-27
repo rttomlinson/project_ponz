@@ -16,6 +16,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             {{#if currentUser }}
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href=#>Current DogeCoins: {{currentUser.dogeCoins}}</a></li>
+                    <li><a href="/shop">Doggee Shop</a></li>
                     <li><a href="/logout?_method=delete">Logout</a></li>
                 </ul>
             {{/if }}

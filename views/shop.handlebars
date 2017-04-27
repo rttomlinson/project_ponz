@@ -1,26 +1,28 @@
-<div class="container">
-  <h2>Bordered Table</h2>
-  <p>The .table-bordered class adds borders to a table:</p>
-  <table class="table table-bordered">
+<header class="text-center">
+    <h1>Welcome to Doge's Shop</h1>
+    <p>Much Wow!</p>
+    {{> images/dogeshopkeep }}
+</header>
+
+<table class="table table-bordered text-center">
     <tbody>
       <tr>
-        <td><img src="https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg"></td>
-        <td></td>
-        <td></td>
+        <td>Items:</td>
+        <td>{{> icons/pokeball }}</td>
+        <td>{{> icons/nailpolish}}</td>
+        <td>{{> icons/bone}}</td>
+        <td>{{> icons/pancakes}}</td>
+        <td>{{> icons/sashimi}}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>Coins:</td>
+        <td>50 <span class="glyphicon glyphicon-ruble"></span></td>
+        <td>25 <span class="glyphicon glyphicon-ruble"></td>
+        <td>100 <span class="glyphicon glyphicon-ruble"></td>
+        <td>90 <span class="glyphicon glyphicon-ruble"></td>
+        <td>45 <span class="glyphicon glyphicon-ruble"></td>
       </tr>
     </tbody>
   </table>
-</div>
 
-</body>
-</html>
+
