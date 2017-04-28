@@ -21,7 +21,8 @@ router.post('/buy/:id', loggedInOnly, (req, res) => {
     let user = req.user;
     user.purchaseItem(itemId, price)
         .then(() => {
-            res.redirect('/');
+            req.flash('success', "Item purchased!");
+            res.redirect('/shop');
         });
 });
 

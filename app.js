@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-//Set env variables
-//require('dotenv').config();
 
 //////////////////////////
 //Serve static files
@@ -74,6 +72,13 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+
+////////////////////////////////////////////
+// Flash Messages
+/////////////////////////////////////////////
+var flash = require('express-flash-messages');
+app.use(flash());
 
 const indexRouter = require('./routes/index');
 const authenticateRouter = require('./routes/authenticate')(passport);
